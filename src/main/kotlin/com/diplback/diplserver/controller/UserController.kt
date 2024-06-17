@@ -6,6 +6,7 @@ import com.diplback.diplserver.model.ApartmentInfo
 import com.diplback.diplserver.model.User
 import com.diplback.diplserver.repository.ApartmentInfoRepo
 import com.diplback.diplserver.repository.UserRepo
+import com.diplback.diplserver.service.ElectronicSignatureService
 import jakarta.persistence.EntityNotFoundException
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
@@ -20,6 +21,9 @@ class UserController {
     lateinit var userRepo: UserRepo
     @Autowired
     lateinit var apartmentInfoRepo: ApartmentInfoRepo
+
+    @Autowired
+    lateinit var electronicSignatureService: ElectronicSignatureService
 
     @GetMapping("/users")
     fun getAll(): Iterable<User> = userRepo.findAll()
@@ -48,6 +52,11 @@ class UserController {
         return user?.let {
             ResponseEntity.ok(it)
         } ?: ResponseEntity.notFound().build()
+    }
+
+    @GetMapping("/user/{userId}/generateSignature")
+    fun generateElectronicSignature(@PathVariable userId: Int): String {
+        return electronicSignatureService.generateElectronicSignature(userId)
     }
 
     @PostMapping("/user/{userId}/edit")

@@ -9,7 +9,7 @@ data class Ein(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Int = -1,
     //@Convert(converter = EncryptedAttributeConverter::class)
-    val einNumber: Long,
+    var einNumber: Long,
     @OneToOne
-    val user: User
+    var user: User
 )

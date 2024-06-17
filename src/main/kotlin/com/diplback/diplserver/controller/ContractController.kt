@@ -75,13 +75,17 @@ class ContractController {
         val passportSender = passportRepo.findPassport(contractDto.userSenderId)
             ?: throw EntityNotFoundException("PassportSender not found")
 
+
+
         val contract = Contract(
             apartmentInfo = apartmentInfo,
             userOwner = userOwner,
             userSender = userSender,
             passportOwner = passportOwner,
             passportSender = passportSender,
-            date = contractDto.date
+            date = contractDto.date,
+            ownerElectronicSignature = contractDto.ownerElectronicSignature,
+            senderElectronicSignature = contractDto.senderElectronicSignature
         )
 
         return contractRepo.save(contract)

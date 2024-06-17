@@ -19,4 +19,6 @@ class Contract(
     @ManyToOne
     val passportSender: Passport,
     val date: String?,
+    val ownerElectronicSignature: String,
+    val senderElectronicSignature: String
 )
